@@ -5,6 +5,7 @@ import { AppModule } from '@/app.module'
 
 import request from 'supertest'
 import { PrismaService } from '@/prisma/prisma.service'
+import { describe, expect, test, beforeAll } from 'vitest'
 
 describe('Create Account (e2e)', () => {
   let app: INestApplication

@@ -7,6 +7,8 @@ import request from 'supertest'
 import { PrismaService } from '@/prisma/prisma.service'
 import { JwtService } from '@nestjs/jwt'
 
+import { describe, expect, test, beforeAll } from 'vitest'
+
 describe('Create Question (e2e)', () => {
   let app: INestApplication
   let prisma: PrismaService
