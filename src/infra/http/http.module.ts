@@ -7,17 +7,27 @@ import { FetchRecentQuestionsController } from './controllers/fetch-recent-quest
 
 import { JwtStrategy } from '../auth/jwt.strategy'
 import { DatabaseModule } from '../database/database.module'
+import { CryptographyModule } from '../cryptography/cryptography.module'
+
 import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 import { FetchRecentQuestionsUseCase } from '@/domain/forum/application/use-cases/fetch-recent-questions'
+import { RegisterStudentUseCase } from '@/domain/forum/application/use-cases/register-student'
+import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases/authenticate-student'
 
 @Module({
-  imports: [DatabaseModule],
+  imports: [DatabaseModule, CryptographyModule],
   controllers: [
     CreateAccountController,
     AuthenticateController,
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [JwtStrategy, CreateQuestionUseCase, FetchRecentQuestionsUseCase],
+  providers: [
+    JwtStrategy,
+    CreateQuestionUseCase,
+    FetchRecentQuestionsUseCase,
+    AuthenticateStudentUseCase,
+    RegisterStudentUseCase,
+  ],
 })
 export class HttpModule {}
