@@ -5,16 +5,17 @@ import { CreateAccountController } from './controllers/create-account.controller
 import { CreateQuestionController } from './controllers/create-question.controller'
 import { FetchRecentQuestionsController } from './controllers/fetch-recent-questions-controller'
 
-import { PrismaService } from '../prisma/prisma.service'
 import { JwtStrategy } from '../auth/jwt.strategy'
+import { DatabaseModule } from '../database/database.module'
 
 @Module({
+  imports: [DatabaseModule],
   controllers: [
     CreateAccountController,
     AuthenticateController,
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [PrismaService, JwtStrategy],
+  providers: [JwtStrategy],
 })
 export class HttpModule {}
