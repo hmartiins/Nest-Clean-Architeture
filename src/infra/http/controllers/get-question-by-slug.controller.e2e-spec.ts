@@ -4,48 +4,43 @@ import { Test } from '@nestjs/testing'
 import { AppModule } from '@/infra/app.module'
 
 import request from 'supertest'
-import { PrismaService } from '@/infra/database/prisma/prisma.service'
 import { JwtService } from '@nestjs/jwt'
 
 import { describe, expect, test, beforeAll } from 'vitest'
+import { StudentFactory } from 'test/factories/make-student'
+import { DatabaseModule } from '@/infra/database/database.module'
+import { QuestionFactory } from 'test/factories/make-question'
+import { Slug } from '@/domain/forum/enterprise/entities/value-objects/slug'
 
 describe('Get Question By Slug (e2e)', () => {
   let app: INestApplication
-  let prisma: PrismaService
   let jwt: JwtService
+  let studentFactory: StudentFactory
+  let questionFactory: QuestionFactory
 
   beforeAll(async () => {
     const module = await Test.createTestingModule({
-      imports: [AppModule],
+      imports: [AppModule, DatabaseModule],
+      providers: [StudentFactory, QuestionFactory],
     }).compile()
 
     app = module.createNestApplication()
-    prisma = module.get(PrismaService)
     jwt = module.get(JwtService)
+    studentFactory = module.get(StudentFactory)
+    questionFactory = module.get(QuestionFactory)
 
     await app.init()
   })
 
   test('[GET] /questions/:slug', async () => {
-    const user = await prisma.user.create({
-      data: {
-        name: 'Test User',
-        email: 'johndoe@example.com',
-        password: '123456',
-      },
-    })
+    const student = await studentFactory.makePrismaStudent()
 
-    const accessToken = jwt.sign({ sub: user.id })
+    const accessToken = jwt.sign({ sub: student.id.toString() })
 
-    await prisma.question.createMany({
-      data: [
-        {
-          title: 'Question 1',
-          content: 'This is the first question',
-          slug: 'question-1',
-          authorId: user.id,
-        },
-      ],
+    await questionFactory.makePrismaQuestion({
+      authorId: student.id,
+      title: 'Question 1',
+      slug: Slug.create('question-1'),
     })
 
     const response = await request(app.getHttpServer())
