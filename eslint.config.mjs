@@ -9,6 +9,7 @@ export default [
   },
   {
     rules: {
+      '@typescript-eslint/no-unused-vars': 'warn',
       'no-new': 'off',
       'no-useless-constructor': 'off',
       '@stylistic/max-len': 'off', // Prettier handles this
