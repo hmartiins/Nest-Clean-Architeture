@@ -8,7 +8,7 @@ import { QuestionBestAnswerChosenEvent } from '@/domain/forum/enterprise/events/
 
 export interface QuestionProps {
   authorId: UniqueEntityID
-  bestAnswerId?: UniqueEntityID
+  bestAnswerId: UniqueEntityID | null
   title: string
   content: string
   slug: Slug
@@ -79,7 +79,7 @@ export class Question extends AggregateRoot<QuestionProps> {
     this.touch()
   }
 
-  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined) {
+  set bestAnswerId(bestAnswerId: UniqueEntityID | undefined | null) {
     if (bestAnswerId === undefined) {
       return
     }
