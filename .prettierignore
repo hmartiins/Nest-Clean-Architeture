@@ -1,0 +1,28 @@
+# Dependencies
+node_modules
+
+# Production
+dist
+build
+
+# Misc
+coverage
+*.log
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Prisma
+prisma/migrations
+
