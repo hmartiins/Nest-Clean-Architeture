@@ -39,6 +39,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Generate JWT Keys
+        run: |
+          openssl genrsa -out private_key.pem 2048
+          openssl rsa -in private_key.pem -pubout -out public_key.pem
+          echo "JWT_PRIVATE_KEY=$(cat private_key.pem | base64 -w 0)" >> $GITHUB_ENV
+          echo "JWT_PUBLIC_KEY=$(cat public_key.pem | base64 -w 0)" >> $GITHUB_ENV
+
       - name: Run Prisma migrations
         run: npx prisma migrate deploy
         env:
@@ -48,3 +55,5 @@ jobs:
         run: npm run test:e2e
         env:
           DATABASE_URL: postgresql://postgres:docker@localhost:5432/nest-clean-test
+          JWT_PRIVATE_KEY: ${{ env.JWT_PRIVATE_KEY }}
+          JWT_PUBLIC_KEY: ${{ env.JWT_PUBLIC_KEY }}
