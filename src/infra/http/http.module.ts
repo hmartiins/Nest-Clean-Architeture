@@ -5,7 +5,6 @@ import { CreateAccountController } from './controllers/create-account.controller
 import { CreateQuestionController } from './controllers/create-question.controller'
 import { FetchRecentQuestionsController } from './controllers/fetch-recent-questions-controller'
 
-import { JwtStrategy } from '../auth/jwt.strategy'
 import { DatabaseModule } from '../database/database.module'
 import { CryptographyModule } from '../cryptography/cryptography.module'
 
@@ -23,7 +22,6 @@ import { AuthenticateStudentUseCase } from '@/domain/forum/application/use-cases
     FetchRecentQuestionsController,
   ],
   providers: [
-    JwtStrategy,
     CreateQuestionUseCase,
     FetchRecentQuestionsUseCase,
     AuthenticateStudentUseCase,
