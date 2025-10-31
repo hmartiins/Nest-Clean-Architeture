@@ -7,6 +7,7 @@ import { FetchRecentQuestionsController } from './controllers/fetch-recent-quest
 
 import { JwtStrategy } from '../auth/jwt.strategy'
 import { DatabaseModule } from '../database/database.module'
+import { CreateQuestionUseCase } from '@/domain/forum/application/use-cases/create-question'
 
 @Module({
   imports: [DatabaseModule],
@@ -16,6 +17,6 @@ import { DatabaseModule } from '../database/database.module'
     CreateQuestionController,
     FetchRecentQuestionsController,
   ],
-  providers: [JwtStrategy],
+  providers: [JwtStrategy, CreateQuestionUseCase],
 })
 export class HttpModule {}
