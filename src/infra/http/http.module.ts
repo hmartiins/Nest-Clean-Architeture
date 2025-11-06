@@ -43,6 +43,7 @@ import {
   FetchQuestionCommentsController,
   FetchRecentQuestionsController,
   GetQuestionBySlugController,
+  UploadAttachmentController,
 } from './controllers'
 
 @Module({
@@ -66,6 +67,7 @@ import {
     DeleteAnswerCommentController,
     FetchQuestionCommentsController,
     FetchAnswerCommentsController,
+    UploadAttachmentController,
   ],
   providers: [
     CreateQuestionUseCase,
