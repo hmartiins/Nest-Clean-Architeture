@@ -1,9 +1,9 @@
-export interface UploadPrarams {
+export interface UploadParams {
   fileName: string
   fileType: string
   body: Buffer
 }
 
 export abstract class Uploader {
-  abstract upload(params: UploadPrarams): Promise<{ url: string }>
+  abstract upload(params: UploadParams): Promise<{ url: string }>
 }
