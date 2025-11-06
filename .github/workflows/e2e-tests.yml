@@ -46,6 +46,8 @@ jobs:
           echo "JWT_PRIVATE_KEY=$(cat private_key.pem | base64 -w 0)" >> $GITHUB_ENV
           echo "JWT_PUBLIC_KEY=$(cat public_key.pem | base64 -w 0)" >> $GITHUB_ENV
 
+      - name: Setup E2E environment variables
+
       - name: Run Prisma migrations
         run: npx prisma migrate deploy
         env:
