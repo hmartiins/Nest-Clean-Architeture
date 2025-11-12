@@ -76,8 +76,14 @@ describe('Fetch Answer Comments (e2e)', () => {
     expect(response.status).toBe(200)
     expect(response.body).toEqual({
       comments: expect.arrayContaining([
-        expect.objectContaining({ content: 'Answer 2' }),
-        expect.objectContaining({ content: 'Answer 1' }),
+        expect.objectContaining({
+          content: 'Answer 2',
+          author: expect.objectContaining({ name: student.name }),
+        }),
+        expect.objectContaining({
+          content: 'Answer 1',
+          author: expect.objectContaining({ name: student.name }),
+        }),
       ]),
     })
   })
