@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { execSync } from 'node:child_process'
 import { beforeAll, afterAll } from 'vitest'
+import { DomainEvents } from '@/core/events/domain-events'
 
 config({ path: '.env', override: true })
 config({ path: '.env.test', override: true })
@@ -34,4 +35,5 @@ beforeAll(async () => {
 afterAll(async () => {
   await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schemaId}" CASCADE`)
   await prisma.$disconnect()
+  DomainEvents.shouldRun = false
 })
